@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GitHub PagesからAWS Lambdaを呼び出す学習用アプリ">
+  <title>AWS × GitHub 学習アプリ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <div class="brand-mark" aria-hidden="true">λ</div>
+      <div>
+        <p class="eyebrow">AWS × GITHUB / HANDS-ON</p>
+        <h1>AWS × GitHub 学習アプリ</h1>
+        <p class="hero-copy">GitHub Pagesの画面からAWS Lambdaへリクエストを送る流れを、実際に確認してみましょう。</p>
+      </div>
+    </header>
+
+    <section class="learning-path" aria-labelledby="path-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">通信経路</p><h2 id="path-title">リクエストの旅</h2></div>
+        <span id="overall-status" class="status-badge status-idle">未接続</span>
+      </div>
+      <div class="path-cards" aria-label="通信経路の接続状態">
+        <article class="path-card is-ready" data-step="github"><span class="path-number">01</span><strong>GitHub</strong><small>コードを管理</small><span class="path-state">準備完了</span></article>
+        <span class="path-arrow" aria-hidden="true">↓</span>
+        <article class="path-card" data-step="pages"><span class="path-number">02</span><strong>GitHub Pages</strong><small>Web画面を公開</small><span class="path-state">未接続</span></article>
+        <span class="path-arrow" aria-hidden="true">↓</span>
+        <article class="path-card" data-step="gateway"><span class="path-number">03</span><strong>API Gateway</strong><small>リクエストを中継</small><span class="path-state">未接続</span></article>
+        <span class="path-arrow" aria-hidden="true">↓</span>
+        <article class="path-card" data-step="lambda"><span class="path-number">04</span><strong>AWS Lambda</strong><small>処理を実行</small><span class="path-state">未接続</span></article>
+        <span class="path-arrow" aria-hidden="true">↓</span>
+        <article class="path-card" data-step="python"><span class="path-number">05</span><strong>Python</strong><small>レスポンスを返す</small><span class="path-state">未接続</span></article>
+      </div>
+    </section>
+
+    <section class="workspace" aria-labelledby="form-title">
+      <div class="form-panel">
+        <p class="eyebrow">STEP 01 / USER INTERFACE</p>
+        <h2 id="form-title">ユーザー登録フォーム</h2>
+        <p class="panel-intro">今回は認証や保存は行わず、Lambdaとの接続だけを確認します。</p>
+        <form id="registration-form" novalidate>
+          <label for="username">ユーザー名</label>
+          <input id="username" name="username" type="text" autocomplete="username" placeholder="例：山田太郎" required>
+          <label for="email">メールアドレス</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="例：taro@example.com" required>
+          <div class="field-row">
+            <div><label for="password">パスワード</label><input id="password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="8文字以上" required></div>
+            <div><label for="password-confirmation">パスワード確認</label><input id="password-confirmation" name="password-confirmation" type="password" autocomplete="new-password" minlength="8" placeholder="もう一度入力" required></div>
+          </div>
+          <p id="form-error" class="message error-message" role="alert" hidden></p>
+          <button class="submit-button" type="submit">登録する <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+      <aside class="status-panel" aria-live="polite">
+        <div class="status-orbit" aria-hidden="true"><span></span></div>
+        <p class="eyebrow">LIVE CHECK</p>
+        <h2 id="result-title">接続を確認しましょう</h2>
+        <p id="result-message">フォームに入力して「登録する」を押すと、API Gateway経由でLambdaを呼び出します。</p>
+        <div id="response-box" class="response-box" hidden><span>Lambdaからのレスポンス</span><code id="response-content"></code></div>
+      </aside>
+    </section>
+    <footer><span>学習用アプリ</span><span>パスワードは保存・送信されません</span></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
